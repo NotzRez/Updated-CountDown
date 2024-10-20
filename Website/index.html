@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Background with Countdown</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black;
+            overflow: hidden;
+            flex-direction: column;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .space {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+        }
+        .dot {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            animation: float 10s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100vh); }
+        }
+        .title {
+            position: absolute;
+            top: 20px;
+            font-size: 2em;
+        }
+        .timer {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3em;
+        }
+        .url {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1em;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="space">
+        <!-- Generate multiple dots -->
+        <script>
+            for (let i = 0; i < 100; i++) {
+                let dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.style.left = Math.random() * 100 + 'vw';
+                dot.style.top = Math.random() * 100 + 'vh';
+                dot.style.animationDuration = 5 + Math.random() * 5 + 's';
+                document.querySelector('.space').appendChild(dot);
+            }
+        </script>
+    </div>
+    <div class="title">COMING SOON!</div>
+    <div class="timer" id="timer"></div>
+    <a href="#" class="url">Pets Go! Countdown</a>
+    <script>
+        function startTimer(duration, display) {
+            let timer = duration, hours, minutes, seconds;
+            setInterval(function () {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+        window.onload = function () {
+            let twentyFourHours = 24 * 60 * 60; // 24 hours in seconds
+            let display = document.querySelector('#timer');
+            startTimer(twentyFourHours, display);
+        };
+    </script>
+</body>
+</html>
